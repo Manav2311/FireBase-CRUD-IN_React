@@ -16,7 +16,7 @@ import {
   FaSortAlphaUp,
 } from "react-icons/fa";
 
-function Component() {
+function Dashboard() {
   const [allEmployees, setAllEmployees] = useState([]);
   const [employee, setEmployee] = useState({});
   const [employeeId, setEmployeeId] = useState(0);
@@ -252,4 +252,4 @@ function Component() {
   );
 }
 
-export default Component;
+export default Dashboard;
