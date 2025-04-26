@@ -25,7 +25,7 @@ function Header() {
         </h1>
       </div>
       <div className="text-2xl font-sami-bold">
-        <Link></Link>
+        {userLogIn?<Link><button>Signout</button></Link>:<Link></Link>}
       </div>
     </header>
   );

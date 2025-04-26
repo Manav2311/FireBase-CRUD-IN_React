@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDb } from "../../FireBase";
+import { auth, getDb } from "../../FireBase";
 import {
   addDoc,
   collection,
@@ -15,6 +15,7 @@ import {
   FaSortAlphaDown,
   FaSortAlphaUp,
 } from "react-icons/fa";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Dashboard() {
   const [allEmployees, setAllEmployees] = useState([]);
@@ -25,7 +26,13 @@ function Dashboard() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
-
+  
+  
+       onAuthStateChanged(auth, (user) => {
+        console.log(user);
+  
+      })
+      
   useEffect(() => {
     loadData();
   }, []);
@@ -95,7 +102,7 @@ function Dashboard() {
   return (
     <div className="dark bg-gray-800 text-gray-100 min-h-screen max-w-screen font-sans">
       <div className="p-6 flex flex-col items-center ">
-        
+
 
         <form
           onSubmit={handleSubmit}
@@ -138,7 +145,7 @@ function Dashboard() {
             </button>
           </div>
         </form>
-        
+
         <div className="w-full max-w-5xl flex flex-col md:flex-row justify-between items-center gap-2 my-6">
           <input
             type="text"
@@ -149,7 +156,7 @@ function Dashboard() {
           />
 
           <div className="flex gap-4">
-            
+
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -161,7 +168,7 @@ function Dashboard() {
               <option value="dob">Sort by DOB</option>
             </select>
 
-            
+
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
@@ -173,7 +180,7 @@ function Dashboard() {
           </div>
         </div>
 
-        
+
         <div className="w-full mt-12 overflow-x-auto max-w-5xl">
           <table className="min-w-full bg-gray-700 text-white shadow-lg rounded-xl overflow-hidden text-lg md:text-center">
             <thead className="bg-indigo-500 text-white">
@@ -230,17 +237,16 @@ function Dashboard() {
             </tbody>
           </table>
 
-          
+
           <div className="flex justify-center gap-2 mt-6 flex-wrap">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentPage(index + 1)}
-                className={`px-4 py-2 rounded-lg font-semibold ${
-                  currentPage === index + 1
+                className={`px-4 py-2 rounded-lg font-semibold ${currentPage === index + 1
                     ? "bg-indigo-500 text-white"
                     : "bg-gray-600 text-gray-200 hover:bg-gray-500"
-                }`}
+                  }`}
               >
                 {index + 1}
               </button>
