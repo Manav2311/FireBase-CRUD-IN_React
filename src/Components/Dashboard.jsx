@@ -28,10 +28,10 @@ function Dashboard() {
   const itemsPerPage = 3;
   
   
-       onAuthStateChanged(auth, (user) => {
-        console.log(user);
+      //  onAuthStateChanged(auth, (user) => {
+      //   console.log(user);
   
-      })
+      // })
       
   useEffect(() => {
     loadData();
